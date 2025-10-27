@@ -139,9 +139,70 @@ def calcular_factura(precio_unitario: float, cantidad: int, tipo_iva: str) -> tu
 Consulta [la descripción de cada ejercicio.](PROG-U2.-Practica005.md)
 
 ---
+## Flujo de Trabajo y Uso de Tests
+
+### **Flujo de Trabajo del Alumno**
+
+1. **Aceptar assignment** → Se crea repositorio personal
+2. **Clonar repositorio**:
+   ```bash
+   git clone https://github.com/tu-organizacion/practica005-nombre-alumno.git
+   cd practica005-nombre-alumno
+   ```
+
+3. **Instalar dependencias**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   Esto instalará:
+   - `pytest` para ejecutar tests
+   - `pytest-cov` para medir cobertura de código
+
+4. **Desarrollar un ejercicio** (por ejemplo, ejercicio01.py)
+
+   Los ejercicios deben estar en la carpeta `src/`:
+   ```bash
+   # Editar el archivo
+   nano src/ejercicio01.py
+   # o usar tu editor preferido
+   code src/ejercicio01.py
+   ```
+
+5. **Ejecutar tests localmente**:
+   ```bash
+   # Test individual
+   pytest test/test_ejercicio01.py -v
+   
+   # Todos los tests
+   pytest test/ -v
+   
+   # Con cobertura de un ejercicio específico
+   pytest --cov=ejercicio01 test/test_ejercicio01.py
+   
+   # Con cobertura de todos los ejercicios
+   pytest --cov=src test/ -v
+   ```
+
+6. **Commit y push**:
+   ```bash
+   git add src/ejercicio01.py
+   git commit -m "Ejercicio 01 completado"
+   git push
+   ```
+
+7. **Ver resultados automáticos**:
+   - GitHub Actions ejecuta tests automáticamente
+   - Ver resultados en pestaña "Actions" del repositorio
+   - ✅ Verde = todos los tests pasaron
+   - ❌ Rojo = hay errores (ver logs para detalles)
 
 
-## Tests Individuales
+### **Ejecución de Tests Localmente**
+
+Otras formas de ejecutar los tests:
+
+#### Tests Individuales
 ```bash
 # Ejecutar test de un ejercicio específico
 pytest test/test_ejercicio01.py -v
@@ -149,7 +210,7 @@ pytest test/test_ejercicio02.py -v
 # ... etc
 ```
 
-### Todos los Tests
+#### Todos los Tests
 ```bash
 # Ejecutar todos los tests
 pytest test/ -v
@@ -161,7 +222,7 @@ pytest test/ --tb=short
 pytest test/ -x
 ```
 
-### Con Cobertura
+#### Con Cobertura
 ```bash
 # Cobertura de un ejercicio específico
 pytest --cov=ejercicio01 test/test_ejercicio01.py
@@ -173,7 +234,7 @@ pytest --cov=src --cov-report=term-missing
 pytest --cov=src --cov-report=html
 ```
 
-### Ver Detalles de un Test Específico
+#### Ver Detalles de un Test Específico
 ```bash
 # Ver todos los casos de prueba
 pytest test/test_ejercicio01.py -v
