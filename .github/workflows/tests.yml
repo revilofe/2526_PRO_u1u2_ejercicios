@@ -1,0 +1,33 @@
+name: Tests Automáticos - Práctica 005
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código del alumno
+      uses: actions/checkout@v3
+      
+    - name: Configurar Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov
+        
+    - name: Ejecutar tests con cobertura
+      run: |
+        pytest test/ -v --cov=src --cov-report=term-missing
+        
+    - name: Verificar cobertura mínima
+      run: |
+        pytest test/ --cov=src --cov-fail-under=80
