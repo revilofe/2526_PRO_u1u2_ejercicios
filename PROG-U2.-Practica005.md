@@ -128,28 +128,21 @@ Además, debe indicar si es una temperatura "extrema" (menor a -10°C o mayor a 
 **Especificación de la función obligatoria:**
 
 ```python
-def clasificar_temperatura(temperatura: float) -> int:
+def clasificar_temperatura(temperatura: float) -> tuple[str, bool]:
     """
-    Clasifica una temperatura y devuelve un código de clasificación.
+    Clasifica una temperatura y determina si es extrema.
     
     Args:
         temperatura: La temperatura en grados Celsius
         
     Returns:
-        int: Código de clasificación:
-            * 0: Temperatura inválida (fuera del rango -50 a 60)
-            * 1: Helada (temp < 0)
-            * 2: Frío (0 <= temp <= 10)
-            * 3: Templado (11 <= temp <= 20)
-            * 4: Cálido (21 <= temp <= 30)
-            * 5: Caluroso (temp > 30)
-            * 10: Extrema fría (temp < -10)
-            * 20: Extrema calurosa (temp > 40)
+        tuple[str, bool]: (clasificacion, es_extrema)
+            - clasificacion: "Helada", "Frío", "Templado", "Cálido" o "Caluroso"
+            - es_extrema: True si temp < -10 o temp > 40, False en caso contrario
         
     Nota:
-        - Si la temperatura está fuera del rango válido (-50 a 60), devolver 0
-        - Las temperaturas extremas (< -10 o > 40) devuelven códigos especiales (10 o 20)
-        - Prioridad: primero verificar extremas, luego las normales
+        - Si la temperatura está fuera del rango válido (-50 a 60), 
+          devolver ("Inválida", False)
     """
     pass
 ```
@@ -163,28 +156,21 @@ Introduce la temperatura en °C: 35
 ```
 Temperatura: 35°C
 Clasificación: Caluroso
-Estado: Temperatura normal (no extrema)
+Temperatura NO extrema
 ```
 
 **Requisitos de implementación:**
 - La función `clasificar_temperatura` debe estar implementada exactamente como se especifica
 - Validar que la temperatura esté en un rango razonable (-50 a 60)
-- El programa debe mapear el código devuelto a mensajes legibles:
-  - Código 0: "Inválida"
-  - Código 1: "Helada"
-  - Código 2: "Frío"
-  - Código 3: "Templado"
-  - Código 4: "Cálido"
-  - Código 5: "Caluroso"
-  - Código 10: "Helada (EXTREMA)"
-  - Código 20: "Caluroso (EXTREMA)"
+- Usar condicionales para clasificar la temperatura
+- Determinar si es extrema (< -10 o > 40)
 - Formatear la salida de manera clara
 
 **Casos de prueba que se evaluarán:**
-- Todas las clasificaciones normales (1-5)
-- Temperaturas extremas (códigos 10 y 20)
+- Todas las clasificaciones ("Helada", "Frío", "Templado", "Cálido", "Caluroso")
+- Temperaturas extremas (< -10 y > 40)
 - Temperaturas en límites de rangos (0, 10, 11, 20, 21, 30, -10, 40)
-- Temperaturas fuera del rango válido (código 0)
+- Temperaturas fuera del rango válido ("Inválida")
 
 ---
 
@@ -198,20 +184,20 @@ Crea un programa que cuente cuántos dígitos pares e impares tiene un número e
 **Especificación de la función obligatoria:**
 
 ```python
-def contar_digitos_pares(numero: int) -> int:
+def contar_digitos_pares_impares(numero: int) -> tuple[int, int]:
     """
-    Cuenta la cantidad de dígitos pares en un número.
+    Cuenta la cantidad de dígitos pares e impares en un número.
     
     Args:
         numero: Un número entero (puede ser positivo o negativo)
         
     Returns:
-        int: Cantidad de dígitos pares encontrados
+        tuple[int, int]: (cantidad_pares, cantidad_impares)
         
     Nota:
         - El 0 se considera par
         - Si el número es negativo, se trabaja con su valor absoluto
-        - Si el número es 0, devolver 1
+        - Si el número es 0, devolver (1, 0)
         - Trabajar SOLO con operaciones matemáticas (NO usar str())
         - Usar % 10 para obtener el último dígito
         - Usar // 10 para eliminar el último dígito
@@ -233,10 +219,10 @@ Dígitos impares: 5 (1, 3, 5, 7, 9)
 ```
 
 **Requisitos de implementación:**
-- La función `contar_digitos_pares` debe estar implementada exactamente como se especifica
+- La función `contar_digitos_pares_impares` debe estar implementada exactamente como se especifica
 - NO usar conversión a cadena (str()) - trabajar solo con operaciones matemáticas (%, //)
 - Usar bucles para extraer dígitos uno a uno
-- El programa principal debe calcular también los impares: total_digitos - pares
+- La función retorna ambos valores (pares e impares)
 - Mostrar opcionalmente qué dígitos son pares y cuáles impares
 
 **Casos de prueba que se evaluarán:**
@@ -264,27 +250,23 @@ Crea un programa que calcule el IMC y determine la categoría de peso:
 **Especificación de la función obligatoria:**
 
 ```python
-def calcular_imc(peso: float, altura: float) -> int:
+def calcular_imc(peso: float, altura: float) -> tuple[float, str]:
     """
-    Calcula el IMC y devuelve un código de categoría.
+    Calcula el IMC y determina la categoría de peso.
     
     Args:
         peso: Peso en kilogramos
         altura: Altura en metros
         
     Returns:
-        int: Código de categoría:
-            * -3: Peso fuera de rango (< 20 o > 300)
-            * -2: Altura fuera de rango (< 0.5 o > 2.5)
-            * -1: Datos inválidos (peso <= 0 o altura <= 0)
-            * 1: Bajo peso (IMC < 18.5)
-            * 2: Normal (18.5 <= IMC < 25)
-            * 3: Sobrepeso (25 <= IMC < 30)
-            * 4: Obesidad (IMC >= 30)
+        tuple[float, str]: (imc, categoria)
+            - imc: El índice de masa corporal calculado
+            - categoria: "Bajo peso", "Normal", "Sobrepeso" u "Obesidad"
         
     Nota:
-        - Fórmula: IMC = peso / (altura * altura)
-        - Validar primero datos inválidos, luego rangos, finalmente calcular
+        - Si peso <= 0 o altura <= 0, devolver (0.0, "Datos inválidos")
+        - Si peso < 20 o peso > 300, devolver (0.0, "Peso fuera de rango")
+        - Si altura < 0.5 o altura > 2.5, devolver (0.0, "Altura fuera de rango")
     """
     pass
 ```
@@ -300,23 +282,14 @@ Altura en metros: 1.75
 Peso: 70.0 kg
 Altura: 1.75 m
 IMC: 22.86
-Categoría: Peso Normal
+Categoría: Normal
 ```
 
 **Requisitos de implementación:**
 - La función `calcular_imc` debe estar implementada exactamente como se especifica
 - Validar que peso y altura sean positivos
 - Validar rangos razonables (peso: 20-300 kg, altura: 0.5-2.5 m)
-- El programa principal debe:
-  - Calcular el IMC real: peso / (altura * altura)
-  - Mapear el código a mensajes:
-    * -3: "Error: Peso fuera de rango"
-    * -2: "Error: Altura fuera de rango"
-    * -1: "Error: Datos inválidos"
-    * 1: "Bajo peso"
-    * 2: "Peso Normal"
-    * 3: "Sobrepeso"
-    * 4: "Obesidad"
+- El programa principal debe mostrar el IMC y la categoría
 - Mostrar IMC con 2 decimales
 
 **Casos de prueba que se evaluarán:**
@@ -337,20 +310,21 @@ Crea un programa que convierta una cantidad de segundos a formato "X días, Y ho
 **Especificación de la función obligatoria:**
 
 ```python
-def validar_segundos(segundos_totales: int) -> int:
+def convertir_segundos(segundos_totales: int) -> tuple[int, int, int, int]:
     """
-    Valida que los segundos sean un valor válido.
+    Convierte una cantidad de segundos a días, horas, minutos y segundos.
     
     Args:
-        segundos_totales: Cantidad total de segundos a validar
+        segundos_totales: Cantidad total de segundos (debe ser >= 0)
         
     Returns:
-        int: El mismo valor si es válido (>= 0), o -1 si es inválido (< 0)
+        tuple[int, int, int, int]: (dias, horas, minutos, segundos)
         
     Nota:
-        - Los segundos deben ser >= 0
-        - Si son negativos, devolver -1
-        - Si son válidos, devolver el mismo valor
+        - Si segundos_totales < 0, devolver (0, 0, 0, 0)
+        - 1 día = 86400 segundos
+        - 1 hora = 3600 segundos
+        - 1 minuto = 60 segundos
     """
     pass
 ```
@@ -367,17 +341,9 @@ Introduce el número de segundos: 100000
 ```
 
 **Requisitos de implementación:**
-- La función `validar_segundos` debe estar implementada exactamente como se especifica
-- El programa principal debe:
-  - Llamar a `validar_segundos` para verificar el input
-  - Si es válido, hacer la conversión en main usando operaciones // y %:
-    * dias = segundos // 86400
-    * resto = segundos % 86400
-    * horas = resto // 3600
-    * resto = resto % 3600
-    * minutos = resto // 60
-    * segundos = resto % 60
+- La función `convertir_segundos` debe estar implementada exactamente como se especifica
 - Validar que los segundos sean positivos o cero
+- La función realiza toda la conversión usando operaciones // y %
 - Usar plurales correctamente en la salida (opcional)
 
 **Casos de prueba que se evaluarán:**
@@ -470,7 +436,7 @@ Además, si el cliente es "premium", añadir un 5% extra de descuento sobre el p
 **Especificación de la función obligatoria:**
 
 ```python
-def calcular_precio_final(importe: float, es_premium: bool) -> float:
+def calcular_precio_final(importe: float, es_premium: bool) -> tuple[float, float, float]:
     """
     Calcula el precio final aplicando descuentos por volumen y premium.
     
@@ -479,22 +445,20 @@ def calcular_precio_final(importe: float, es_premium: bool) -> float:
         es_premium: True si el cliente es premium, False si no
         
     Returns:
-        float: Precio final a pagar después de aplicar todos los descuentos
+        tuple[float, float, float]: (descuento_volumen, descuento_premium, precio_final)
+            - descuento_volumen: Cantidad descontada por volumen
+            - descuento_premium: Cantidad descontada por ser premium
+            - precio_final: Precio final a pagar
         
     Nota:
-        - Si importe <= 0, devolver 0.0
+        - Si importe <= 0, devolver (0.0, 0.0, 0.0)
         - El descuento premium se aplica DESPUÉS del descuento por volumen
         - Descuentos por volumen:
             * < 100€: 0%
-            * 100-199.99€: 10%
-            * 200-499.99€: 15%
+            * 100-199€: 10%
+            * 200-499€: 15%
             * >= 500€: 20%
         - Descuento premium: 5% adicional sobre el precio ya descontado
-        - Proceso:
-            1. Calcular descuento por volumen
-            2. Aplicar descuento: subtotal = importe - descuento_volumen
-            3. Si es premium: descuento_premium = subtotal * 0.05
-            4. precio_final = subtotal - descuento_premium
     """
     pass
 ```
@@ -519,14 +483,7 @@ Ahorro total: 48.13€ (19.25%)
 - La función `calcular_precio_final` debe estar implementada exactamente como se especifica
 - Validar que el importe sea positivo
 - Calcular descuentos correctamente en orden (primero volumen, luego premium sobre el subtotal)
-- El programa principal debe:
-  - Llamar a la función para obtener el precio final
-  - Para mostrar el desglose, recalcular los descuentos:
-    * Determinar el porcentaje de descuento por volumen
-    * descuento_volumen = importe * porcentaje
-    * subtotal = importe - descuento_volumen
-    * Si premium: descuento_premium = subtotal * 0.05
-    * Verificar que precio_final coincida
+- El programa principal recibe los tres valores de la función y los muestra
 - Mostrar desglose completo de descuentos
 - Calcular porcentaje de ahorro total
 
@@ -601,7 +558,7 @@ Resultado: CONTRASEÑA SEGURA
 - El programa principal debe mostrar cada requisito con ✓ o ✗:
   - Si tiene_longitud == 1: "✓ Longitud adecuada", sino "✗ Longitud insuficiente"
   - Si tiene_mayuscula == 1: "✓ Contiene mayúsculas", sino "✗ No contiene mayúsculas"
-  - Si tiene_minuscula == 1: "✓ Contiene minúsculas", sino "✗ No contiene minúsculas"
+  - Si tiene_minuscula == 1: "✓ Contiene minúsculas", sino "✗ No contiene mayúsculas"
   - Si tiene_digito == 1: "✓ Contiene números", sino "✗ No contiene números"
   - Si tiene_especial == 1: "✓ Contiene caracteres especiales", sino "✗ No contiene caracteres especiales"
   - Si es_valida == True: "CONTRASEÑA SEGURA", sino "CONTRASEÑA INSEGURA"
@@ -777,9 +734,9 @@ Rango (máx - mín): 20
 - Conjunto normal de números
 - Un solo número
 - Números iguales
-- Validación de datos (cantidad y suma negativos)
-- Cálculo correcto del promedio
-- Casos con cantidad = 0
+- Número 0
+- Números negativos
+- Números de un solo dígito
 
 ---
 

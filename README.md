@@ -29,109 +29,112 @@ def calcular_propina(importe: float, calidad: str) -> tuple[float, float]:
 
 ---
 
-### **Ejercicio 02**: Conversor de Temperatura con Validación
-**Problema**: Convertir temperatura validando que no sea inferior al cero absoluto
+### **Ejercicio 02**: Clasificador de Temperaturas
+**Problema**: Clasificar temperatura en categorías y determinar si es extrema
 
 **Función obligatoria**:
 ```python
-def convertir_temperatura(valor: float, escala_origen: str, escala_destino: str) -> tuple[int, float]:
-    """Retorna (codigo_estado, temperatura_convertida)
-    Códigos: 0=éxito, 1=temp_invalida, 2=escala_invalida"""
+def clasificar_temperatura(temperatura: float) -> tuple[str, bool]:
+    """Retorna (clasificacion, es_extrema)
+    Clasificaciones: "Helada", "Frío", "Templado", "Cálido", "Caluroso", "Inválida"
+    es_extrema: True si temp < -10 o temp > 40"""
 ```
 
 ---
 
-### **Ejercicio 03**: Sistema de Descuentos por Cantidad
-**Problema**: Aplicar descuentos escalonados según cantidad comprada
+### **Ejercicio 03**: Contador de Dígitos Pares e Impares
+**Problema**: Contar dígitos pares e impares usando solo operaciones matemáticas
 
 **Función obligatoria**:
 ```python
-def calcular_precio_final(precio_unitario: float, cantidad: int) -> float:
-    """Retorna precio_final con descuento aplicado
-    Descuentos: 5-9→5%, 10-19→10%, 20+→15%"""
+def contar_digitos_pares_impares(numero: int) -> tuple[int, int]:
+    """Retorna (cantidad_pares, cantidad_impares)
+    Trabajar SOLO con operaciones matemáticas (% y //)"""
 ```
 
 ---
 
-### **Ejercicio 04**: Calculadora de Interés Compuesto
-**Problema**: Calcular inversión con interés compuesto
-
-**Función obligatoria**:
-```python
-def calcular_inversion(capital_inicial: float, tasa_interes: float, años: int) -> tuple[float, float]:
-    """Retorna (capital_final, intereses_ganados)"""
-```
-
----
-
-### **Ejercicio 05**: Validador de Contraseñas Seguras
-**Problema**: Verificar requisitos de seguridad de contraseña
-
-**Función obligatoria**:
-```python
-def validar_contraseña(contraseña: str) -> tuple[bool, int]:
-    """Retorna (es_valida, codigo_fallo)
-    Códigos: 0=válida, 1=corta, 2=sin_mayus, 3=sin_minus, 4=sin_num"""
-```
-
----
-
-### **Ejercicio 06**: Sistema de Calificaciones con Estadísticas
-**Problema**: Procesar 5 notas y calcular estadísticas
-
-**Función obligatoria**:
-```python
-def procesar_calificaciones(nota1: float, nota2: float, nota3: float, 
-                           nota4: float, nota5: float) -> tuple[float, float, float, int]:
-    """Retorna (promedio, nota_max, nota_min, codigo_resultado)
-    Códigos: 0=aprobado, 1=reprobado, 2=datos_invalidos"""
-```
-
----
-
-### **Ejercicio 07**: Calculadora de Préstamos
-**Problema**: Calcular cuota mensual de préstamo con interés
-
-**Función obligatoria**:
-```python
-def calcular_cuota_prestamo(monto: float, tasa_anual: float, meses: int) -> tuple[float, float, float]:
-    """Retorna (cuota_mensual, total_pagar, total_intereses)"""
-```
-
----
-
-### **Ejercicio 08**: Conversor de Tiempo con Validación
-**Problema**: Convertir entre unidades de tiempo
-
-**Función obligatoria**:
-```python
-def convertir_tiempo(valor: float, unidad_origen: str, unidad_destino: str) -> tuple[int, float]:
-    """Retorna (codigo_estado, valor_convertido)
-    Códigos: 0=éxito, 1=valor_negativo, 2=unidad_invalida"""
-```
-
----
-
-### **Ejercicio 09**: Calculadora de IMC con Recomendaciones
-**Problema**: Calcular IMC y dar categoría
+### **Ejercicio 04**: Calculadora de IMC
+**Problema**: Calcular índice de masa corporal y determinar categoría
 
 **Función obligatoria**:
 ```python
 def calcular_imc(peso: float, altura: float) -> tuple[float, str]:
     """Retorna (imc, categoria)
-    Categorías: "bajo_peso", "normal", "sobrepeso", "obesidad"""
+    Categorías: "Bajo peso", "Normal", "Sobrepeso", "Obesidad"
+    O mensajes de error: "Datos inválidos", "Peso fuera de rango", "Altura fuera de rango""""
 ```
 
 ---
 
-### **Ejercicio 10**: Sistema de Facturación con IVA
-**Problema**: Calcular factura con IVA y descuento por volumen
+### **Ejercicio 05**: Conversor de Tiempo
+**Problema**: Convertir segundos a formato días, horas, minutos, segundos
 
 **Función obligatoria**:
 ```python
-def calcular_factura(precio_unitario: float, cantidad: int, tipo_iva: str) -> tuple[float, float, float, float]:
-    """Retorna (subtotal, descuento, iva, total)
-    Tipos IVA: "general"→21%, "reducido"→10%, "superreducido"→4%"""
+def convertir_segundos(segundos_totales: int) -> tuple[int, int, int, int]:
+    """Retorna (dias, horas, minutos, segundos)"""
+```
+
+---
+
+### **Ejercicio 06**: Detector de Años Bisiestos
+**Problema**: Determinar si un año es bisiesto y la razón
+
+**Función obligatoria**:
+```python
+def es_bisiesto(anio: int) -> tuple[bool, int]:
+    """Retorna (es_bisiesto, codigo_razon)
+    Códigos: 0=fuera_rango, 1=div_400, 2=no_div_400, 3=div_4_no_100, 4=no_div_4"""
+```
+
+---
+
+### **Ejercicio 07**: Calculadora de Descuentos Progresivos
+**Problema**: Aplicar descuentos por volumen y cliente premium
+
+**Función obligatoria**:
+```python
+def calcular_precio_final(importe: float, es_premium: bool) -> tuple[float, float, float]:
+    """Retorna (descuento_volumen, descuento_premium, precio_final)
+    Descuentos por volumen: <100→0%, 100-199→10%, 200-499→15%, ≥500→20%
+    Descuento premium: 5% adicional sobre precio ya descontado"""
+```
+
+---
+
+### **Ejercicio 08**: Validador de Contraseñas Seguras
+**Problema**: Verificar requisitos de seguridad de contraseña
+
+**Función obligatoria**:
+```python
+def validar_contrasena(contrasena: str) -> tuple[bool, int, int, int, int, int]:
+    """Retorna (es_valida, tiene_longitud, tiene_mayuscula, tiene_minuscula, tiene_digito, tiene_especial)
+    Requisitos: ≥8 caracteres, mayúscula, minúscula, dígito, carácter especial (!@#$%&*)"""
+```
+
+---
+
+### **Ejercicio 09**: Simulador de Carrera de Caracoles
+**Problema**: Simular carrera de 3 caracoles con velocidades diferentes
+
+**Función obligatoria**:
+```python
+def simular_carrera(velocidad1: int, velocidad2: int, velocidad3: int, distancia_meta: int) -> tuple[int, int]:
+    """Retorna (ganador, turnos_necesarios)
+    ganador: 1, 2 o 3 (o 0 si hay error)
+    Velocidades válidas: 1-10 cm/turno"""
+```
+
+---
+
+### **Ejercicio 10**: Calculadora de Estadísticas Básicas
+**Problema**: Calcular estadísticas de números introducidos por el usuario
+
+**Función obligatoria**:
+```python
+def calcular_promedio(suma_total: int, cantidad: int) -> float:
+    """Retorna promedio (suma/cantidad) o 0.0 si hay error"""
 ```
 
 ---
@@ -200,222 +203,37 @@ Consulta [la descripción de cada ejercicio.](PROG-U2.-Practica005.md)
 
 ### **Ejecución de Tests Localmente**
 
-Otras formas de ejecutar los tests:
-
-#### Tests Individuales
-```bash
-# Ejecutar test de un ejercicio específico
-pytest test/test_ejercicio01.py -v
-pytest test/test_ejercicio02.py -v
-# ... etc
-```
-
-#### Todos los Tests
 ```bash
 # Ejecutar todos los tests
 pytest test/ -v
 
-# Con resumen
-pytest test/ --tb=short
-
-# Detener en primer fallo
-pytest test/ -x
-```
-
-#### Con Cobertura
-```bash
-# Cobertura de un ejercicio específico
-pytest --cov=ejercicio01 test/test_ejercicio01.py
-
-# Cobertura total
-pytest --cov=src --cov-report=term-missing
-
-# Generar reporte HTML
-pytest --cov=src --cov-report=html
-```
-
-#### Ver Detalles de un Test Específico
-```bash
-# Ver todos los casos de prueba
+# Ejecutar solo un ejercicio
 pytest test/test_ejercicio01.py -v
 
-# Ver con print statements
-pytest test/test_ejercicio01.py -v -s
+# Ver cobertura de código
+pytest --cov=src test/ -v
+
+# Ver reporte detallado de cobertura
+pytest --cov=src --cov-report=html test/
 ```
 
 ---
 
-## ✅ Criterios de Evaluación
+## 📊 Evaluación
 
-Cada ejercicio se evalúa mediante tests automáticos que verifican:
-
-1. **Funcionalidad correcta** (70%)
-   - Cálculos precisos
-   - Manejo de casos normales y especiales
-   - Validaciones de entrada
-
-2. **Firma de función** (15%)
-   - Nombre correcto
-   - Parámetros correctos con tipos
-   - Tipo de retorno correcto
-
-3. **Buenas prácticas** (15%)
-   - Sin `while True`, `break`, `continue`
-   - Código modular (funciones auxiliares)
-   - Comentarios claros
-   - Type hints en funciones
+- ✅ **Tests automáticos**: Los tests validan que tu función obligatoria funciona correctamente
+- 📝 **Código limpio**: Documenta tu código con docstrings y comentarios
+- 🎯 **Buenas prácticas**: Usa type hints, valida entradas, modulariza el código
 
 ---
 
-## 📊 Feedback para el Alumno
+## 🚀 Comenzar
 
-GitHub Actions proporciona feedback inmediato:
+1. Acepta el assignment de GitHub Classroom
+2. Clona tu repositorio
+3. Instala dependencias: `pip install -r requirements.txt`
+4. Implementa las funciones en `src/ejercicio01.py`, `src/ejercicio02.py`, etc.
+5. Ejecuta tests: `pytest test/ -v`
+6. Haz commit y push de tus cambios
 
-- ✅ **Tests pasados**: Ejercicio correcto
-- ❌ **Tests fallidos**: Ver logs para identificar errores
-- 📝 **Cobertura**: Indica qué partes del código se ejecutaron
-
-**Ejemplo de output**:
-```
-test_ejercicio01.py::test_calidad_excelente PASSED      [ 10%]
-test_ejercicio01.py::test_calidad_buena PASSED          [ 20%]
-test_ejercicio01.py::test_calidad_regular PASSED        [ 30%]
-test_ejercicio01.py::test_importe_negativo PASSED       [ 40%]
-...
-======================== 10 passed in 0.23s ========================
-```
-
----
-
-## 🎓 Características Pedagógicas
-
-### Patrón de Código Enseñado
-
-Todos los ejercicios siguen esta estructura:
-
-```python
-def main():
-    """Función principal que coordina el programa"""
-    # 1. BLOQUE DE ENTRADA
-    datos = leer_datos()
-    
-    # 2. BLOQUE DE PROCESAMIENTO
-    resultado = procesar(datos)
-    
-    # 3. BLOQUE DE SALIDA
-    mostrar_resultado(resultado)
-```
-
-### Prohibiciones (para fomentar código limpio)
-
-❌ No usar `while True` → Usar condiciones explícitas  
-❌ No usar `break` / `continue` → Usar lógica clara  
-❌ No usar estructuras avanzadas (listas, diccionarios) → Aún no vistas  
-✅ Se permiten tuplas solo para retorno múltiple de funciones
-
-### Elementos Obligatorios
-
-✅ **Type hints** en todas las funciones  
-✅ **Docstrings** documentando propósito, args y returns  
-✅ **Comentarios** explicativos (el "por qué", no el "qué")  
-✅ **Validaciones** de entrada de datos  
-✅ **Modularidad** dividiendo en funciones pequeñas
-
----
-
-## 📁 Estructura de Archivos
-
-La práctica está organizada en una estructura modular que separa el código fuente de los tests:
-
-```
-Practica005/
-├── .gitignore                   # Archivos a ignorar en git
-├── pytest.ini                   # Configuración de pytest
-├── README.md                    # Este archivo
-├── requirements.txt             # Dependencias (pytest, pytest-cov)
-├── src/                         # 📦 Código fuente de los ejercicios
-│   ├── __init__.py
-│   ├── ejercicio01.py           # Solución didáctica ej. 1
-│   ├── ejercicio02.py           # Solución didáctica ej. 2
-│   ├── ...
-│   └── ejercicio10.py           # Solución didáctica ej. 10
-└── test/                        # 🧪 Tests unitarios
-    ├── __init__.py
-    ├── test_ejercicio01.py      # Tests unitarios ej. 1
-    ├── test_ejercicio02.py      # Tests unitarios ej. 2
-    ├── ...
-    └── test_ejercicio10.py      # Tests unitarios ej. 10
-```
-
-### **Ventajas de esta estructura:**
-
-✅ **Separación clara** entre código y tests  
-✅ **Escalabilidad** fácil para añadir más ejercicios  
-✅ **Imports limpios** gracias a `pythonpath` configurado en `pytest.ini`  
-✅ **Configuración centralizada** en `pytest.ini`  
-✅ **Compatible con GitHub Classroom** y CI/CD
-
-### **Configuración de pytest (`pytest.ini`):**
-
-El archivo `pytest.ini` está configurado para que los imports sean simples:
-
-```ini
-[pytest]
-pythonpath = src
-testpaths = test
-```
-
-Esto permite importar directamente desde los módulos sin prefijo:
-```python
-# En los tests:
-from ejercicio01 import calcular_propina  # ✅ Simple
-# En lugar de:
-# from src.ejercicio01 import calcular_propina  # ❌ Innecesario
-```
-
----
-
-## 👨‍🏫 Notas para el Profesor
-
-### Personalización de Tests
-
-Los tests se pueden ajustar modificando los archivos `test_ejercicioXX.py`. Por ejemplo, para cambiar umbrales de validación o añadir casos de prueba adicionales.
-
-### Visualización de Progreso
-
-En GitHub Classroom puedes ver:
-- Qué alumnos han aceptado el assignment
-- Último commit de cada alumno
-- Estado de los tests (✅ o ❌)
-- Tiempo dedicado (mediante commits)
-
-### Retroalimentación Manual
-
-Aunque los tests son automáticos, se recomienda:
-- Revisar código manualmente para evaluar estilo
-- Dar feedback en Pull Requests
-- Destacar soluciones creativas
-
----
-
-## 📞 Soporte
-
-Para dudas sobre:
-- **Tests que fallan**: Ver logs detallados en GitHub Actions
-- **Configuración local**: Verificar Python 3.11+ y pytest instalado
-- **GitHub Classroom**: Consultar documentación oficial
-
----
-
-## 👤 Autor
-
-**Eduardo Fernández**  
-IES Rafael Alberti  
-Módulo: Programación (DAM/DAW)  
-Fecha: Octubre 2025
-
----
-
-## 📄 Licencia
-
-Material educativo de uso libre para fines docentes.
+¡Buena suerte! 🎓
